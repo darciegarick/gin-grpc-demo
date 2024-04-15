@@ -1,0 +1,26 @@
+// 使用proto3 语法
+syntax = "proto3";
+
+// 这部分内容是关于最后生成的go文件是处在哪个目录哪个包下， . 表示当前目录， proto 表示生成的go文件放在当前目录的 proto 文件夹下
+option go_package = "./;serverproto";
+
+// 定义一个服务 服务中有方法，该方法可以接收客户端的参数，再返回服务端的响应
+// DemoService 表示服务名 该服务中有一个rpc方法，名为 SayHello
+// SayHello方法会发送一个 HelloRequest，然后返回一个 HelloResponse
+service DemoService {
+  // 定义一个方法
+  rpc SayHello (HelloRequest) returns (HelloResponse) {}
+}
+
+// 定义一个请求消息
+// message 关键字，可以理解为 Golang 中的 struct
+// 这里面比较特别的是变量后面的“赋值”。注意，在这里并不是赋值，而是定义这个变量在这个message中的位置
+message HelloRequest {
+  string name = 1;
+  // int64 age = 2;
+}
+
+// 定义一个响应消息
+message HelloResponse {
+  string message = 1;
+}
